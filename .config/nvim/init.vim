@@ -11,9 +11,7 @@ Plug 'junegunn/gv.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Plug 'neovim/nvim-lsp'
-" Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'neovim/nvim-lspconfig'
 
 Plug 'puremourning/vimspector'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -28,6 +26,8 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
+
+lua require('lspconfig').gopls.setup{}
 
 " Use Markdown in vimwiki
 let g:vimwiki_list = [{'path': '~/.vim/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
