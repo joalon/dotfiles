@@ -33,10 +33,29 @@ Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 
-lua require('lspconfig').gopls.setup{ on_attach=require'completion'.on_attach }
+" Map leader to space
+nnoremap <SPACE> <Nop>
+let mapleader="\<Space>"
+
+" Clean search (highlight)
+nnoremap <silent> <leader><space> :noh<cr>
+
+" Telescope config
+lua << EOF
+local actions = require('telescope.actions')
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close
+      },
+    },
+  }
+}
+EOF
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <Leader>ff <cmd>Telescope find_files<CR>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -47,11 +66,17 @@ let g:vimwiki_global_ext = 0 " only set extension on file when in vimwiki dir
 
 " Vimspector
 let g:vimspector_enable_mappings = 'HUMAN'
-"nmap <F5> <Plug>VimspectorContinue
+nmap <F5> <Plug>VimspectorContinue
 nmap <F7> <Plug>VimspectorReset
-"nmap <F9> <Plug>VimspectorToggleBreakpoint
-"nmap <F10> <Plug>VimspectorStepOver
-"nmap <F11> <Plug>VimspectorStepInto
+nmap <F9> <Plug>VimspectorToggleBreakpoint
+nmap <F10> <Plug>VimspectorStepOver
+nmap <F11> <Plug>VimspectorStepInto
+
+" LSP Config
+lua require('lspconfig').gopls.setup{ on_attach=require'completion'.on_attach }
+lua require('lspconfig').pyls.setup{ on_attach=require'completion'.on_attach }
+" use omni completion provided by lsp
+autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 set completeopt=menuone,noinsert,noselect
 let g:completion_matchin_strategy_list = ['exact', 'substring', 'fuzzy']
@@ -60,17 +85,15 @@ set shortmess+=c
 nmap <tab> <Plug>(completion_smart_tab)
 nmap <s-tab> <Plug>(completion_smart_s_tab)
 
-nmap // :BLines!<CR>
-
-"nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-"nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-"nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-"nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-"nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-"nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-"nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-"nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
 " Required:
 filetype plugin indent on
@@ -101,8 +124,6 @@ set softtabstop=0
 set shiftwidth=4
 set expandtab
 
-"" Map leader to ,
-let mapleader=' '
 
 "" Enable hidden buffers
 set hidden
@@ -287,15 +308,12 @@ augroup highlight_yank
 augroup END
 
 "" fzf.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+"set wildmode=list:longest,list:full
+"set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+"let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
-
-"" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
 
 "" Switching windows
 noremap <C-j> <C-w>j
@@ -316,8 +334,8 @@ nnoremap <leader>gu :diffget //2<CR>
 nnoremap <leader>gs :G<CR>
 
 " Ctrl-f for fzf search
-nnoremap <silent> <C-f> :Files<CR>
-nnoremap <silent> <Leader>f :Rg<CR>
+"nnoremap <silent> <C-f> :Files<CR>
+"nnoremap <silent> <Leader>f :Rg<CR>
 
 fun! TrimWhitespace()
     let l:save = winsaveview()
