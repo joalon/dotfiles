@@ -14,6 +14,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'sheerun/vim-polyglot'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -76,6 +77,7 @@ nmap <F11> <Plug>VimspectorStepInto
 lua require('lspconfig').gopls.setup{ on_attach=require'completion'.on_attach }
 lua require('lspconfig').pyls.setup{ on_attach=require'completion'.on_attach }
 lua require('lspconfig').tsserver.setup{ on_attach=require'completion'.on_attach }
+lua require('lspconfig').elixirls.setup{ on_attach=require'completion'.on_attach }
 " use omni completion provided by lsp
 autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
@@ -169,7 +171,7 @@ let g:indentLine_faster = 1
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
-set scrolloff=3
+set scrolloff=7
 
 "" Status bar
 set laststatus=2
@@ -345,6 +347,9 @@ fun! TrimWhitespace()
 endfun
 
 autocmd BufWritePre * :call TrimWhitespace()
+
+" Formatting commands
+autocmd FileType elixir setlocal formatprg=mix\ format\ -
 
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python2'
