@@ -321,18 +321,6 @@ nnoremap <C-l> :bnext<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-"" Open current line on GitHub
-nnoremap <Leader>o :.Gbrowse<CR>
-
-" Sweet Sweet FuGITive
-nnoremap <leader>gh :diffget //3<CR>
-nnoremap <leader>gu :diffget //2<CR>
-nnoremap <leader>gs :G<CR>
-
-" Ctrl-f for fzf search
-"nnoremap <silent> <C-f> :Files<CR>
-"nnoremap <silent> <Leader>f :Rg<CR>
-
 fun! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
@@ -343,6 +331,7 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 " Formatting commands
 autocmd FileType elixir setlocal formatprg=mix\ format\ -
+autocmd FileType go setlocal formatprg=gofmt -
 
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python2'
