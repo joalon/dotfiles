@@ -314,11 +314,13 @@ augroup END
 set noerrorbells visualbell t_vb=
 
 " Switching buffers
-nnoremap <C-h> :bprev<CR>
-nnoremap <C-l> :bnext<CR>
+nnoremap <silent> <C-h> :bprev<CR>
+nnoremap <silent> <C-l> :bnext<CR>
 
 " Close buffer
-nnoremap <C-w> :bd<CR>
+nnoremap <silent> <C-w> :bd<CR>
+
+nnoremap <silent> <Leader>rp :!python3 %<CR>
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
