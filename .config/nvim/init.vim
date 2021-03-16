@@ -317,6 +317,9 @@ set noerrorbells visualbell t_vb=
 nnoremap <C-h> :bprev<CR>
 nnoremap <C-l> :bnext<CR>
 
+" Close buffer
+nnoremap <C-w> :bd<CR>
+
 "" Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
 vnoremap > >gv
