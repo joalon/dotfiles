@@ -310,19 +310,12 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
 augroup END
 
-"" fzf.vim
-"set wildmode=list:longest,list:full
-"set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-"let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-
 " Disable visualbell
 set noerrorbells visualbell t_vb=
 
-"" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
+" Switching buffers
+nnoremap <C-h> :bprev<CR>
+nnoremap <C-l> :bnext<CR>
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
