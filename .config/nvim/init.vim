@@ -21,12 +21,12 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'puremourning/vimspector'
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
-"Plug 'stsewd/fzf-checkout.vim'
+
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
 Plug 'jupyter-vim/jupyter-vim'
+
+Plug 'junegunn/goyo.vim'
 
 Plug 'tomasr/molokai'
 Plug 'gruvbox-community/gruvbox'
