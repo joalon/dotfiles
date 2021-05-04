@@ -324,9 +324,6 @@ set noerrorbells visualbell t_vb=
 nnoremap <silent> <C-h> :bprev<CR>
 nnoremap <silent> <C-l> :bnext<CR>
 
-" Close buffer
-nnoremap <silent> <C-w> :bd<CR>
-
 nnoremap <silent> <Leader>rp :!python3 %<CR>
 
 "" Vmap for maintain Visual Mode after shifting > and <
