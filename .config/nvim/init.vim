@@ -14,7 +14,11 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'sheerun/vim-polyglot'
+
+Plug 'vim-test/vim-test'
+Plug 'mfussenegger/nvim-dap'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'folke/lsp-trouble.nvim'
 
@@ -22,13 +26,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
-Plug 'puremourning/vimspector'
-
 Plug 'vimwiki/vimwiki'
+Plug 'oberblastmeister/neuron.nvim'
+
 Plug 'mhinz/vim-startify'
 Plug 'jupyter-vim/jupyter-vim'
-
-Plug 'junegunn/goyo.vim'
 
 Plug 'tomasr/molokai'
 Plug 'gruvbox-community/gruvbox'
@@ -43,9 +45,19 @@ let mapleader="\<Space>"
 " Clean search (highlight)
 nnoremap <silent> <leader><space> :noh<cr>
 
-" lsp-trouble setup
+" lsp-trouble config
 lua require("trouble").setup{}
 
+" Neuron config
+lua << EOF
+require'neuron'.setup {
+    virtual_titles = true,
+    mappings = true,
+    run = nil, -- function to run when in neuron dir
+    neuron_dir = "~/.neuron", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
+    leader = "<leader>z", -- the leader key to for all mappings, remember with 'go zettel'
+}
+EOF
 
 " Telescope config
 lua << EOF
@@ -62,22 +74,23 @@ require('telescope').setup{
 EOF
 
 " Find files using Telescope command-line sugar.
-nnoremap <Leader>ff <cmd>Telescope find_files<CR>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fr <cmd>lua require('telescope.builtin').find_files{ cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1] }<cr>
+nnoremap <leader>gr <cmd>lua require('telescope.builtin').live_grep{ cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1] }<cr>
+
+nnoremap <Leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>gg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fc <cmd>Telescope git_commits<cr>
 
 " Use Markdown in vimwiki
 let g:vimwiki_list = [{'path': '~/.vim/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0 " only set extension on file when in vimwiki dir
 
-" Vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
-nmap <F5> <Plug>VimspectorContinue
-nmap <F7> <Plug>VimspectorReset
-nmap <F9> <Plug>VimspectorToggleBreakpoint
-nmap <F10> <Plug>VimspectorStepOver
-nmap <F11> <Plug>VimspectorStepInto
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-g>"
 
 " LSP Config
 lua require('lspconfig').gopls.setup{ on_attach=require'completion'.on_attach }
@@ -178,7 +191,7 @@ let g:indentLine_faster = 1
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
-set scrolloff=7
+set scrolloff=15
 
 "" Status bar
 set laststatus=2
@@ -301,7 +314,7 @@ noremap <Leader>gll :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
+" noremap <Leader>gr :Gremove<CR>
 
 " session management
 nnoremap <leader>so :OpenSession<Space>
