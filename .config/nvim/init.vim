@@ -84,6 +84,7 @@ lua require('lspconfig').gopls.setup{ on_attach=require'completion'.on_attach }
 lua require('lspconfig').pyls.setup{ on_attach=require'completion'.on_attach }
 lua require('lspconfig').tsserver.setup{ on_attach=require'completion'.on_attach }
 lua require('lspconfig').elixirls.setup{ on_attach=require'completion'.on_attach }
+lua require('lspconfig').hls.setup{}
 " use omni completion provided by lsp
 autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
