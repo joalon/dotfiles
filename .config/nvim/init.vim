@@ -340,7 +340,7 @@ autocmd BufWritePre * :call TrimWhitespace()
 
 " Formatting commands
 autocmd FileType elixir setlocal formatprg=mix\ format\ -
-autocmd FileType go setlocal formatprg=gofmt -
+autocmd FileType go setlocal formatprg=gofmt
 
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_host_prog = '/usr/bin/python2'
