@@ -331,7 +331,7 @@ noremap <Leader>gb :Git blame<CR>
 noremap <Leader>gp :Git push<CR>
 noremap <Leader>gl :Git pull<CR>
 noremap <Leader>gd :Gdiffsplit<CR>
-noremap <Leader>gr :Gremove<CR>
+"noremap <Leader>gr :Gremove<CR> " Conflicts with telescope...
 noremap <Leader>gw :Gwrite<CR>
 
 "" Set working directory
