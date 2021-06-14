@@ -14,20 +14,27 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'folke/lsp-trouble.nvim'
 
 Plug 'vim-test/vim-test'
 Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'joalon/stgit-unofficial.nvim'
+
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-Plug 'folke/lsp-trouble.nvim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'ThePrimeagen/harpoon'
 
 Plug 'vimwiki/vimwiki'
-Plug 'oberblastmeister/neuron.nvim'
+Plug 'junegunn/fzf.vim'
+Plug 'chiefnoah/neuron-v2.vim'
 
 Plug 'mhinz/vim-startify'
 Plug 'jupyter-vim/jupyter-vim'
@@ -48,16 +55,27 @@ nnoremap <silent> <leader><space> :noh<cr>
 " lsp-trouble config
 lua require("trouble").setup{}
 
+" nvim-dap
+lua require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+lua require('dap-python').test_runner = 'pytest'
+nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
+
 " Neuron config
-lua << EOF
-require'neuron'.setup {
-    virtual_titles = true,
-    mappings = true,
-    run = nil, -- function to run when in neuron dir
-    neuron_dir = "~/.neuron", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
-    leader = "<leader>z", -- the leader key to for all mappings, remember with 'go zettel'
-}
-EOF
+" lua << EOF
+" require'neuron'.setup {
+"     virtual_titles = true,
+"     mappings = true,
+"     run = nil, -- function to run when in neuron dir
+"     neuron_dir = "~/.neuron", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
+"     leader = "<leader>z", -- the leader key to for all mappings, remember with 'go zettel'
+" }
+" EOF
+
+" stgit config
+nnoremap <leader>ss :call StgSeries()<CR>
+nnoremap <leader>sk :call StgPop()<CR>
+nnoremap <leader>sj :call StgPush()<CR>
+nnoremap <leader>sr :!stg refresh -i<CR>
 
 " Telescope config
 lua << EOF
@@ -146,7 +164,6 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
-
 
 "" Enable hidden buffers
 set hidden
@@ -307,20 +324,15 @@ noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
 
 "" Fugitive
-" noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Git commit<CR>
-"noremap <Leader>gsh :Git push<CR>
-"noremap <Leader>gll :Git pull<CR>
 noremap <Leader>gs :Git<CR>
+noremap <Leader>ga :Git add -p<CR>
+noremap <Leader>gc :Git commit<CR>
 noremap <Leader>gb :Git blame<CR>
+noremap <Leader>gp :Git push<CR>
+noremap <Leader>gl :Git pull<CR>
 noremap <Leader>gd :Gdiffsplit<CR>
-" noremap <Leader>gr :Gremove<CR>
-
-" session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
+noremap <Leader>gr :Gremove<CR>
+noremap <Leader>gw :Gwrite<CR>
 
 "" Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
